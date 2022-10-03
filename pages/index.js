@@ -11,12 +11,22 @@ function App() {
     
     // <div className="App" >
      <div  style={{ backgroundImage: `url(./img/Homebackground.jpg)`, backgroundSize:"cover", backgroundRepeat:"no-repeat",  minHeight:"100vh", flex:1, backgroundPosition: "center"}}>
-      <Container className='p-3'>
-      <Row className="justify-content-md-center">
-        <Col md lg="2">
-      <Button variant="primary p-3">leader board</Button>
-      </Col>
-      </Row>
+      <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
+      <div className="d-grid gap-4">
+      <Button variant="primary" size="lg">
+        Play
+      </Button>
+      <Button variant="primary" size="lg">
+        Leader Board
+      </Button>
+      <Button variant="primary" size="lg">
+        Hints
+      </Button>
+      <Button variant="primary" size="lg">
+        Feedbacks
+      </Button>
+    </div>
+     
       </Container>
      </div>
     // </div>
