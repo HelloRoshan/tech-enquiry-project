@@ -10,7 +10,7 @@ function App() {
   return (
     
     // <div className="App" >
-     <div  style={{ backgroundImage: `url(./img/Homebackground.jpg)`, backgroundSize:"cover", backgroundRepeat:"no-repeat",  minHeight:"100vh", flex:1, backgroundPosition: "center"}}>
+     <div  style={{ backgroundImage: `url(./img/HomeBackground.jpg)`, backgroundSize:"cover", backgroundRepeat:"no-repeat",  minHeight:"100vh", flex:1, backgroundPosition: "center"}}>
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
       <div className="d-grid gap-4">
       <Button variant="primary" size="lg">
