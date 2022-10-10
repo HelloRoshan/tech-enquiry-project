@@ -22,7 +22,7 @@ function level() {
                         </h2>
                     </Button>
                 </Link>
-                <Link href='/' variant="primary">
+                <Link href='/category/multiplication' variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'>
                         <h2>
                             Multiply X
