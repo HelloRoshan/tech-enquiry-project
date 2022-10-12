@@ -11,7 +11,7 @@ function App() {
   return (
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
         <div className="d-grid gap-4">
-          <Link href='/level' variant="primary">
+          <Link href='/levels' variant="primary">
             <Button variant="primary" size="lg">
               Play
             </Button>
