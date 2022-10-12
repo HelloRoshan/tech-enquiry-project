@@ -1,7 +1,13 @@
-import React from 'react'
-import { Container, Button, Card} from 'react-bootstrap'
+import React, { useEffect } from 'react'
+import { Container, Button, Card} from 'react-bootstrap';
+import {getQues} from "../../src/actions/questionActions"
 
 function multiplication() {
+    useEffect(()=>{
+        console.log("multi")
+        getQues()
+    },[])
+    
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
     <div className="d-grid gap-4">
