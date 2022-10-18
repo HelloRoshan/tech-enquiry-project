@@ -1,10 +1,6 @@
-// import Background from "./img/HomeBackground.jpg"
-// import Image from 'next/image'
 import React from 'react';
 import {Button} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Link from 'next/link';
 
 function App() {
@@ -16,12 +12,11 @@ function App() {
               Play
             </Button>
           </Link>
-          <Button variant="primary" size="lg">
-            Leader Board
-          </Button>
-          <Button variant="primary" size="lg">
-            Hints
-          </Button>
+          <Link href='/leaderboard' variant="primary">
+            <Button variant="primary" size="lg">
+              Leader Board
+            </Button>
+          </Link>
           <Button variant="primary" size="lg">
             Feedbacks
           </Button>
