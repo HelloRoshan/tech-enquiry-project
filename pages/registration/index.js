@@ -6,7 +6,6 @@ function registration() {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("Error");
 
@@ -30,24 +29,28 @@ function registration() {
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Full Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Full Name"
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter Full Name"
+                            required
                             onChange={(e) => setFullName(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email"
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email address"
+                            required
                             onChange={(e) => setEmail(e.target.value)}  />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password"
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            required
                             onChange={(e) => setPassword(e.target.value)}  />
-                    </Form.Group>
-                    <Form.Group className="mb-5" controlId="formBasicPassword">
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password"
-                            onChange={(e) => setConfirmPassword(e.target.value)} />
                     </Form.Group>
 
                     {/* Error Message Section */}

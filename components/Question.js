@@ -33,16 +33,14 @@ function Question(props) {
                     <ProgressBar variant="success" now={(props.questionNumber/props.totalQuestions)*100} />
                     <h5 class="text-warning fs-6">Question {props.questionNumber}/{props.totalQuestions}</h5>
                 </div>
-                <div style={{position: "relative"}}>
-                   <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
-                    <Overlay target={target.current} show={showHint} placement="right">
-                        {(props) => (
-                        <Tooltip id="overlay-example" {...props}>
-                            Here we will add hint specific to each question
-                        </Tooltip>
-                        )}
-                    </Overlay>
-                </div>
+                <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
+                <Overlay target={target.current} show={showHint} placement="right">
+                    {(props) => (
+                    <Tooltip id="overlay-example" {...props}>
+                        Here we will add hint specific to each question
+                    </Tooltip>
+                    )}
+                </Overlay>
             </div>
             <Card.Title className="mb-4 d-flex">
                 <div>
