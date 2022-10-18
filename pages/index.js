@@ -18,9 +18,6 @@ function App() {
             </Button>
           </Link>
           <Button variant="primary" size="lg">
-            Hints
-          </Button>
-          <Button variant="primary" size="lg">
             Feedbacks
           </Button>
         </div>
