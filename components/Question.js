@@ -1,0 +1,93 @@
+import React, { useState, useRef } from 'react';
+
+import { Card, Form, Button, ProgressBar, Tooltip, Overlay } from 'react-bootstrap';
+
+/* Sample data for use of component */
+{/* <Question question={{
+id: 1,
+quiz_id: 1,
+question: "1+2",
+question_image: null,
+options: [1,2,3,4],
+options_image: null,
+correct_answer: 2,
+level: 1,
+question_type: null
+}}
+questionNumber="10"
+totalQuestions="20" /> */}
+
+function Question(props) {
+    const [inputAnswer, setInputAnswer] = useState("");
+    const [selectedAnswer, setSelectedAnswer] = useState("null");
+    const [showHint, setShowHint] = useState(false);
+    const target = useRef(null);
+
+    const handleSubmitAnswer = () => {
+        alert(inputAnswer);
+    }
+    return (
+        <Card className="p-5 w-75">
+            <div className="mb-3 d-flex justify-content-between">
+                <div className="w-75">
+                    <ProgressBar variant="success" now={(props.questionNumber/props.totalQuestions)*100} />
+                    <h5 class="text-warning fs-6">Question {props.questionNumber}/{props.totalQuestions}</h5>
+                </div>
+                <div style={{position: "relative"}}>
+                   <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
+                    <Overlay target={target.current} show={showHint} placement="right">
+                        {(props) => (
+                        <Tooltip id="overlay-example" {...props}>
+                            Here we will add hint specific to each question
+                        </Tooltip>
+                        )}
+                    </Overlay>
+                </div>
+            </div>
+            <Card.Title className="mb-4 d-flex">
+                <div>
+                    {props.question.question}
+                </div>
+            </Card.Title>
+            {/* TODO: Add Button with tooltip for Hint */}
+            <Card.Body className="p-0">
+                {/* TODO: Show input and options based on question type */}
+                {
+                    props.question.question_type
+                    ?
+                        <Form.Control
+                            type="text"
+                            className="mb-4"
+                            placeholder="Enter Your Answer Here..."
+                            onChange={(e) => setInputAnswer(e.target.value)}
+                        />
+                    :
+                        <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
+                            {
+                                props.question.options.map((option) =>
+                                    <Button
+                                        variant={selectedAnswer == option ? "info" : "light"}
+                                        className={"rounded mb-4 pt-4 pb-4 border " + (selectedAnswer == option ? 'shadow' : '')}
+                                        style={{width: "45%"}}
+                                        onClick={() => setSelectedAnswer(option)}>
+                                        <Form.Check
+                                            varrant
+                                            inline
+                                            label={option}
+                                            name={`question-${props.questionNumber}`}
+                                            checked={selectedAnswer == option}
+                                            type="radio"
+                                            id={`inline-radio-${props.questionNumber}`}
+                                        />
+                                    </Button>
+                                )
+                            }
+                        </div>
+                }
+            </Card.Body>
+            <Button variant="warning" onClick={handleSubmitAnswer}>Submit</Button>
+        </Card>
+    )
+}
+
+export default Question;
