@@ -4,9 +4,9 @@ import {
     GET_QUESTION, GET_ERROR
 } from "./types"
 
-export const setQues = ()=>(dispatch)=>{
+export const setQues = (param)=>(dispatch)=>{
     axios
-    .get("http://api.studyproject.one/questions")
+    .get(`http://api.studyproject.one/questions?level=${param.level}&question_type=${param.type}`)
     .then((res) =>
       dispatch({
         type: GET_QUESTION,

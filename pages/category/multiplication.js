@@ -7,35 +7,54 @@ import {setQues} from "../../src/actions/questionActions"
 function multiplication(props) {
     const {question, setQues} = props
     const [quesList, setQuesList]= useState([])
+    const [count,setCount]=useState(0)
     useEffect(()=>{
-        console.log("multi")
-        setQues()
+    //  const quesParams={
+    //   level=
+    //  }
+
+        // setQues()
     },[])
 
     useEffect(()=>{
-        // console.log(question)
-        setQuesList(question)
+        console.log(question)
+        setQuesList(question?.question?.results)
     },[question])
 
-    useEffect(()=>{
-      console.log(quesList)
-      
-  },[quesList])
+  
 
-    
+    const onClickNext=()=>{
+      let lenQues = quesList.length
+      if(count < lenQues-1){
+        setCount(count+1)
+      }else{
+        setCount(0)
+      }
+    }
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
     <div className="d-grid gap-4">
         <Card className='p-4 rounded shadow-lg'>
             <h1 className='mb-4'>Multiplication</h1>
+            {quesList? 
+            (<h1>{quesList[count]?.question}</h1>) :[]
+            }
             
-            {quesList?.question?.map(
+            {count}
+            <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickNext(count)
+                                             
+                                            }>
+                        <h4>
+                            Next
+                        </h4>
+                    </Button>
+            {/* {quesList?.map(
             (item, i) => (
               // <BasicTableCard>
-              <h1>{item}</h1>
+              <h1>{item.question}</h1>
               // </BasicTableCard>
             )
-          )}
+          )} */}
           {/* {quesList?.map((item) => 
           
             {<h1>{item}<h1/>})
@@ -47,6 +66,7 @@ function multiplication(props) {
             </Container>
   )
 }
+
 multiplication.propTypes = {
     setQues: PropTypes.func.isRequired,
     
@@ -59,5 +79,8 @@ const mapStateToProps = (state) =>
    const mapDispatchToProps = {
     setQues
    }
+
+   
+   
 
 export default  connect(mapStateToProps, mapDispatchToProps)(multiplication)

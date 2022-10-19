@@ -14,22 +14,22 @@ function Levels() {
         <h1>Select Level</h1>
         <br></br>
         
-        <Link href='/category' variant="primary">
+        <Link href={{ pathname: '/category', query: { level: '1' } }} variant="primary">
              <Button variant="primary" size="lg" className='mb-3'>
                 1
             </Button>
             </Link>
-            <Link href='/category' variant="primary">
+            <Link href={{ pathname: '/category', query: { level: '2' } }} variant="primary">
              <Button variant="primary" size="lg" className='mb-3'>
                 2
             </Button>
             </Link>
-            <Link href='/category' variant="primary">
+            <Link href={{ pathname: '/category', query: { level: '3' } }} variant="primary">
              <Button variant="primary" size="lg" className='mb-3'>
                 3
             </Button>
             </Link>
-            <Link href='/category' variant="primary">
+            <Link href={{ pathname: '/category', query: { level: '4' } }} variant="primary">
              <Button variant="primary" size="lg" className='mb-3'>
                 4
             </Button>
