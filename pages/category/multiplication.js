@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import PropTypes from "prop-types";
 import { Container, Button, Card} from 'react-bootstrap';
 import {setQues} from "../../src/actions/questionActions"
+import Question from '../../components/Question';
 
 function multiplication(props) {
     const {question, setQues} = props
@@ -36,10 +37,17 @@ function multiplication(props) {
     <div className="d-grid gap-4">
         <Card className='p-4 rounded shadow-lg'>
             <h1 className='mb-4'>Multiplication</h1>
-            {quesList? 
+            {/* {quesList? 
             (<h1>{quesList[count]?.question}</h1>) :[]
             }
-            
+             */}
+             <Question
+             question={quesList ? quesList[count]:{}}
+             questionNumber="1"
+             totalQuestions="10"
+             />
+             
+             
             {count}
             <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickNext(count)
                                              

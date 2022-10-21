@@ -23,14 +23,14 @@ setQues(param)
           
             <Card className='p-4 rounded shadow-lg'>
                 <h1 className='mb-4'>Select Arithmetic Problem</h1>
-                <Link href='/' variant="primary">
+                <Link href='/category/addition' variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(1)}>
                         <h2>
                             Add +
                         </h2>
                     </Button>
                 </Link>
-                <Link href='/' variant="primary">
+                <Link href='/category/subtraction' variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(2)}>
                         <h2>
                             Subtract -
@@ -44,7 +44,7 @@ setQues(param)
                         </h2>
                     </Button>
                 </Link>
-                <Link href='/' variant="primary">
+                <Link href='/category/division' variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(3)}>
                         <h2>
                             Divide /

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { Card, Form, Button, ProgressBar, Tooltip, Overlay } from 'react-bootstrap';
 
@@ -18,6 +18,7 @@ questionNumber="10"
 totalQuestions="20" /> */}
 
 function Question(props) {
+    const {questionNumber, totalQuestions, question}= props
     const [inputAnswer, setInputAnswer] = useState("");
     const [selectedAnswer, setSelectedAnswer] = useState("null");
     const [showHint, setShowHint] = useState(false);
@@ -26,12 +27,16 @@ function Question(props) {
     const handleSubmitAnswer = () => {
         alert(inputAnswer);
     }
+    useEffect(()=>{
+        console.log(question)
+    },[question])
+    
     return (
         <Card className="p-5 w-75">
             <div className="mb-3 d-flex justify-content-between">
                 <div className="w-75">
-                    <ProgressBar variant="success" now={(props.questionNumber/props.totalQuestions)*100} />
-                    <h5 class="text-warning fs-6">Question {props.questionNumber}/{props.totalQuestions}</h5>
+                    <ProgressBar variant="success" now={(questionNumber/totalQuestions)*100} />
+                    <h5 class="text-warning fs-6">Question {questionNumber}/{totalQuestions}</h5>
                 </div>
                 <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
                 <Overlay target={target.current} show={showHint} placement="right">
@@ -44,14 +49,14 @@ function Question(props) {
             </div>
             <Card.Title className="mb-4 d-flex">
                 <div>
-                    {props.question.question}
+                    {question?.question}
                 </div>
             </Card.Title>
             {/* TODO: Add Button with tooltip for Hint */}
             <Card.Body className="p-0">
                 {/* TODO: Show input and options based on question type */}
                 {
-                    props.question.question_type
+                    question?.question_type
                     ?
                         <Form.Control
                             type="text"
@@ -62,7 +67,7 @@ function Question(props) {
                     :
                         <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
                             {
-                                props.question.options.map((option) =>
+                                question?.options?.map((option) =>
                                     <Button
                                         variant={selectedAnswer == option ? "info" : "light"}
                                         className={"rounded mb-4 pt-4 pb-4 border " + (selectedAnswer == option ? 'shadow' : '')}
@@ -72,10 +77,10 @@ function Question(props) {
                                             varrant
                                             inline
                                             label={option}
-                                            name={`question-${props.questionNumber}`}
+                                            name={`question-${questionNumber}`}
                                             checked={selectedAnswer == option}
                                             type="radio"
-                                            id={`inline-radio-${props.questionNumber}`}
+                                            id={`inline-radio-${questionNumber}`}
                                         />
                                     </Button>
                                 )
