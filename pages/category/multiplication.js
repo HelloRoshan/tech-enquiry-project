@@ -8,7 +8,7 @@ import Question from '../../components/Question';
 function multiplication(props) {
     const {question, setQues} = props
     const [quesList, setQuesList]= useState([])
-    const [count,setCount]=useState(0)
+    const [count,setCount]=useState(1)
     useEffect(()=>{
     //  const quesParams={
     //   level=
@@ -25,8 +25,8 @@ function multiplication(props) {
   
 
     const onClickNext=()=>{
-      let lenQues = quesList.length
-      if(count < lenQues-1){
+      let lenQues = quesList?.length
+      if(count < lenQues){
         setCount(count+1)
       }else{
         setCount(0)
@@ -43,8 +43,8 @@ function multiplication(props) {
              */}
              <Question
              question={quesList ? quesList[count]:{}}
-             questionNumber="1"
-             totalQuestions="10"
+             questionNumber={count}
+             totalQuestions={quesList?.length}
              />
              
              
