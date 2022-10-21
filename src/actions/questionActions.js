@@ -4,17 +4,17 @@ import {
     GET_QUESTION, GET_ERROR
 } from "./types"
 
-export const getQues = ()=>(dispatch)=>{
-    console.log("hello")
+export const setQues = (param)=>(dispatch)=>{
     axios
-    .get("https://634658cf745bd0dbd37b638e.mockapi.io/api/v1/questions")
+    .get(`http://api.studyproject.one/questions?level=${param.level}&question_type=${param.type}`)
     .then((res) =>
       dispatch({
         type: GET_QUESTION,
         payload: res.data,
         
-      }),
-      console.log("here")
+      },
+      console.log(res.data)),
+      
       
     )
     .catch((err) =>
@@ -22,6 +22,6 @@ export const getQues = ()=>(dispatch)=>{
         type: GET_ERROR,
         payload: err.response.data,
       }),
-      console.log("there")
+      
     );
 }
