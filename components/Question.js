@@ -30,7 +30,7 @@ function Question(props) {
     useEffect(()=>{
         console.log(question)
     },[question])
-    
+
     return (
         <Card className="p-5 w-75">
             <div className="mb-3 d-flex justify-content-between">
