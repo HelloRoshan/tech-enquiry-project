@@ -18,7 +18,7 @@ questionNumber="10"
 totalQuestions="20" /> */}
 
 function Question(props) {
-    const { questionNumber, totalQuestions, question } = props
+    const { questionNumber, totalQuestions, quesList } = props
     const [inputAnswer, setInputAnswer] = useState("");
     const [selectedAnswer, setSelectedAnswer] = useState("null");
     const [showHint, setShowHint] = useState(false);
@@ -27,8 +27,8 @@ function Question(props) {
     const target = useRef(null);
 
     const handleSubmitAnswer = (inputAnswer) => {
-        console.log(question?.options[question?.correct_answer])
-        if (parseInt(inputAnswer) === question?.options[question?.correct_answer]) {
+        console.log(quesList[count]?.options[quesList[count]?.correct_answer])
+        if (parseInt(inputAnswer) === quesList[count]?.options[quesList[count]?.correct_answer]) {
             
             setCorrectAns(true)
         } else {
@@ -40,14 +40,16 @@ function Question(props) {
         let lenQues = quesList.length
         if(count < lenQues){
           setCount(count+1)
+          setCorrectAns(false)
+          setInputAnswer("")
         }else{
           setCount(0)
         }
       }
 
-    useEffect(() => {
-        console.log(question)
-    }, [question])
+    // useEffect(() => {
+    //     console.log(question)
+    // }, [question])
 
     return (
         <Card className="p-5 w-75">
@@ -67,25 +69,26 @@ function Question(props) {
             </div>
             <Card.Title className="mb-4 d-flex">
                 <div>
-                    {question?.question}
+                    {quesList[count]?.question}
                 </div>
             </Card.Title>
             {/* TODO: Add Button with tooltip for Hint */}
             <Card.Body className="p-0">
                 {/* TODO: Show input and options based on question type */}
                 {
-                    question?.question_type
+                    quesList[count]?.question_type
                         ?
                         <Form.Control
                             type="text"
                             className="mb-4"
                             placeholder="Enter Your Answer Here..."
                             onChange={(e) => setInputAnswer(e.target.value)}
+                            value={inputAnswer}
                         />
                         :
                         <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
                             {
-                                question?.options?.map((option) =>
+                                quesList[count]?.options?.map((option) =>
                                     <Button
                                         variant={selectedAnswer == option ? "info" : "light"}
                                         className={"rounded mb-4 pt-4 pb-4 border " + (selectedAnswer == option ? 'shadow' : '')}
