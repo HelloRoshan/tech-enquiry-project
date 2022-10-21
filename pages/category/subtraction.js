@@ -42,20 +42,13 @@ function subtraction(props) {
             }
              */}
              <Question
-             question={quesList ? quesList[count]:{}}
+             quesList={quesList ? quesList:{}}
              questionNumber={count}
              totalQuestions={quesList?.length}
              />
              
              
-            {count}
-            <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickNext(count)
-                                             
-                                            }>
-                        <h4>
-                            Next
-                        </h4>
-                    </Button>
+            
             {/* {quesList?.map(
             (item, i) => (
               // <BasicTableCard>

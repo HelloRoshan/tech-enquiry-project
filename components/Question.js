@@ -18,60 +18,81 @@ questionNumber="10"
 totalQuestions="20" /> */}
 
 function Question(props) {
-    const {questionNumber, totalQuestions, question}= props
+    const { questionNumber, totalQuestions, quesList } = props
     const [inputAnswer, setInputAnswer] = useState("");
     const [selectedAnswer, setSelectedAnswer] = useState("null");
     const [showHint, setShowHint] = useState(false);
+    const [correctAns, setCorrectAns] = useState(false);
+    const [count,setCount]=useState(1)
     const target = useRef(null);
 
-    const handleSubmitAnswer = () => {
-        alert(inputAnswer);
+    const handleSubmitAnswer = (inputAnswer) => {
+        console.log(quesList[count]?.options[quesList[count]?.correct_answer])
+        if (parseInt(inputAnswer) === quesList[count]?.options[quesList[count]?.correct_answer]) {
+            
+            setCorrectAns(true)
+        } else {
+            console.log("fail")
+        }
     }
-    useEffect(()=>{
-        console.log(question)
-    },[question])
+
+    const onClickNext=()=>{
+        let lenQues = quesList.length
+        if(count < lenQues){
+          setCount(count+1)
+          setCorrectAns(false)
+          setInputAnswer("")
+        }else{
+          setCount(0)
+        }
+      }
+
+    // useEffect(() => {
+    //     console.log(question)
+    // }, [question])
 
     return (
         <Card className="p-5 w-75">
             <div className="mb-3 d-flex justify-content-between">
                 <div className="w-75">
-                    <ProgressBar variant="success" now={(questionNumber/totalQuestions)*100} />
+                    <ProgressBar variant="success" now={(questionNumber / totalQuestions) * 100} />
                     <h5 class="text-warning fs-6">Question {questionNumber}/{totalQuestions}</h5>
                 </div>
                 <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
                 <Overlay target={target.current} show={showHint} placement="right">
                     {(props) => (
-                    <Tooltip id="overlay-example" {...props}>
-                        Here we will add hint specific to each question
-                    </Tooltip>
+                        <Tooltip id="overlay-example" {...props}>
+                            Here we will add hint specific to each question
+                        </Tooltip>
                     )}
                 </Overlay>
             </div>
             <Card.Title className="mb-4 d-flex">
                 <div>
-                    {question?.question}
+                    {quesList[count]?.question}
                 </div>
             </Card.Title>
             {/* TODO: Add Button with tooltip for Hint */}
             <Card.Body className="p-0">
                 {/* TODO: Show input and options based on question type */}
                 {
-                    question?.question_type
-                    ?
+                    quesList[count]?.question_type
+                        ?
                         <Form.Control
                             type="text"
                             className="mb-4"
                             placeholder="Enter Your Answer Here..."
                             onChange={(e) => setInputAnswer(e.target.value)}
+                            value={inputAnswer}
                         />
-                    :
+                        :
                         <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
                             {
-                                question?.options?.map((option) =>
+                                quesList[count]?.options?.map((option) =>
                                     <Button
                                         variant={selectedAnswer == option ? "info" : "light"}
                                         className={"rounded mb-4 pt-4 pb-4 border " + (selectedAnswer == option ? 'shadow' : '')}
-                                        style={{width: "45%"}}
+                                        style={{ width: "45%" }}
                                         onClick={() => setSelectedAnswer(option)}>
                                         <Form.Check
                                             varrant
@@ -88,7 +109,23 @@ function Question(props) {
                         </div>
                 }
             </Card.Body>
-            <Button variant="warning" onClick={handleSubmitAnswer}>Submit</Button>
+            <Button variant="warning" onClick={() => handleSubmitAnswer(inputAnswer)}>Submit</Button>
+            
+            {correctAns ?
+                (
+                <>
+                <h2>Congratulation !!! </h2>
+            <h3>Click next to go to next question.</h3>
+                
+                <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickNext(count)
+
+                }>
+                    <h4>
+                        Next
+                    </h4>
+                </Button>
+                </>):[]    
+        }
         </Card>
     )
 }
