@@ -20,7 +20,7 @@ function login() {
 
         axios
             .post(`http://api.studyproject.one/login`, {
-                username,
+                username: username.trim(),
                 password
             })
             .then((res) => {
