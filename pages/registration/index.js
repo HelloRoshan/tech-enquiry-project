@@ -1,17 +1,55 @@
 import React, { useState } from 'react';
 import { Card, Button, Form, Container } from 'react-bootstrap';
 import Link from 'next/link';
+import axios from "axios";
+
 function registration() {
-    const [role, setRole] = useState("1");
+    const [role, setRole] = useState("0");
     const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("Error");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [processing, setProcessing] = useState(false);
+
+    const errorHandler= (err) => {
+        const errorMessage = err || 'Error';
+        setErrorMessage(errorMessage);
+        setError(true);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        /* TODO: Add API Call for login and redirect */
+
+        setError(false);
+        setErrorMessage("");
+        setSuccessMessage("");
+        setProcessing(true);
+
+        axios
+            .post(`http://api.studyproject.one/register`, {
+                type: parseInt(role, 10),
+                fullname: fullName.trim(),
+                username: username.trim(),
+                password,
+            })
+            .then((res) => {
+                setError(false);
+                setErrorMessage("");
+                const response = res?.data;
+
+                if (response?.success) {
+                    const message = response?.msg;
+                    setSuccessMessage(message);
+                } else {
+                    errorHandler(response?.msg);
+                }
+            })
+            .catch((err) => {
+                errorHandler(err?.response?.data?.error)
+            })
+            .finally(() => setProcessing(false));
     };
 
     return(
@@ -23,8 +61,8 @@ function registration() {
                         <Form.Label>Select Role</Form.Label>
                         <Form.Select aria-label="Select Role" className="mb-3"  value={role} onChange={(e) => setRole(e.target.value)}>
                             <option style={{color: '#888'}} disabled>Select Role</option>
-                            <option value="1">Teacher</option>
-                            <option value="2">Student</option>
+                            <option value="0">Teacher</option>
+                            <option value="1">Student</option>
                         </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -35,13 +73,13 @@ function registration() {
                             required
                             onChange={(e) => setFullName(e.target.value)} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                        <Form.Label>Username</Form.Label>
                         <Form.Control
-                            type="email"
-                            placeholder="Enter email address"
+                            type="text"
+                            placeholder="Enter unique username"
                             required
-                            onChange={(e) => setEmail(e.target.value)}  />
+                            onChange={(e) => setUsername(e.target.value)}  />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -55,11 +93,19 @@ function registration() {
 
                     {/* Error Message Section */}
                     { error &&
-                        <div  class="alert alert-danger fs-6 p-2" role="alert">{errorMessage}</div>
+                        <div  className="alert alert-danger fs-6 p-2" role="alert">{errorMessage}</div>
+                    }
+                    { successMessage &&
+                        <div  className="alert alert-success fs-6 p-2" role="alert">
+                            <div>{successMessage}</div>
+                            <div>
+                                Go to <Link href='/login' variant="primary">Login Page</Link> to Sign In
+                            </div>
+                        </div>
                     }
 
                     <div className="d-flex justify-content-center align-items-center">
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" disabled={processing}>
                             Register
                         </Button>
                         <span className="mx-4">
