@@ -46,7 +46,7 @@ function App() {
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleLogout}>
+              <Button variant="danger" onClick={handleLogout}>
                 Logout
               </Button>
             </Modal.Footer>

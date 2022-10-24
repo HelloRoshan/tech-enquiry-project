@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import { Card, Button, Form, Container } from 'react-bootstrap';
 import Link from 'next/link';
@@ -10,6 +10,12 @@ function login() {
     const [errorMessage, setErrorMessage] = useState("");
 
     const router = useRouter();
+
+    const errorHandler= (err) => {
+        const errorMessage = err || 'Error';
+        setErrorMessage(errorMessage);
+        setError(true);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,14 +33,17 @@ function login() {
                 setError(false);
                 setErrorMessage("");
                 const response = res?.data;
-                localStorage.clear();
-                localStorage.setItem('user', JSON.stringify({ username, type: response?.type }));
-                router.push('/')
+
+                if (response?.success) {
+                    localStorage.clear();
+                    localStorage.setItem('user', JSON.stringify({ username, type: response?.type }));
+                    router.push('/')
+                } else {
+                    errorHandler(response?.msg)
+                }
             })
             .catch((err) => {
-                const errorMessage = err?.response?.data?.error || 'Error';
-                setErrorMessage(errorMessage);
-                setError(true);
+                errorHandler(err?.response?.data?.error);
             });
     };
     
