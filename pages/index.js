@@ -30,9 +30,11 @@ function App() {
               Leader Board
             </Button>
           </Link>
-          <Button variant="primary" size="lg">
-            Feedbacks
-          </Button>
+           <Link href='/feedbacks' variant="primary">
+            <Button variant="primary" size="lg">
+              Feedbacks
+            </Button>
+          </Link>
           <Button variant="primary" size="lg" onClick={handleShow}>
             Logout
           </Button>
