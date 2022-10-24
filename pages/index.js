@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function App() {
+  const router = useRouter();
+
   const [showLogoutModal, setLogoutModal] = useState(false);
 
   const handleClose = () => setLogoutModal(false);
   const handleShow = () => setLogoutModal(true);
 
   const handleLogout = () => {
-    /* clear login */
-    window.location.pathname = '/login';
+    localStorage.removeItem('user');
+    router.replace('/login');
   };
 
   return (

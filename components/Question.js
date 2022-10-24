@@ -56,7 +56,7 @@ function Question(props) {
             <div className="mb-3 d-flex justify-content-between">
                 <div className="w-75">
                     <ProgressBar variant="success" now={(questionNumber / totalQuestions) * 100} />
-                    <h5 class="text-warning fs-6">Question {questionNumber}/{totalQuestions}</h5>
+                    <h5 className="text-warning fs-6">Question {questionNumber}/{totalQuestions}</h5>
                 </div>
                 <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
                 <Overlay target={target.current} show={showHint} placement="right">
