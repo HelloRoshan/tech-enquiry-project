@@ -10,7 +10,7 @@ function Levels() {
     
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
     <div className="d-grid gap-4">
-        <Card className='p-4 rounded shadow-lg'>
+        <Card className='d-flex  justify-content-center p-4 rounded shadow-lg' style={{width: 400, height:400}}>
         <h1>Select Level</h1>
         <br></br>
         
