@@ -11,6 +11,7 @@ function registration() {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+    const [processing, setProcessing] = useState(false);
 
     const errorHandler= (err) => {
         const errorMessage = err || 'Error';
@@ -24,6 +25,7 @@ function registration() {
         setError(false);
         setErrorMessage("");
         setSuccessMessage("");
+        setProcessing(true);
 
         axios
             .post(`http://api.studyproject.one/register`, {
@@ -46,7 +48,8 @@ function registration() {
             })
             .catch((err) => {
                 errorHandler(err?.response?.data?.error)
-            });
+            })
+            .finally(() => setProcessing(false));
     };
 
     return(
@@ -102,7 +105,7 @@ function registration() {
                     }
 
                     <div className="d-flex justify-content-center align-items-center">
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" disabled={processing}>
                             Register
                         </Button>
                         <span className="mx-4">

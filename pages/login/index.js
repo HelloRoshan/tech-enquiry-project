@@ -8,6 +8,7 @@ function login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [processing, setProcessing] = useState(false);
 
     const router = useRouter();
 
@@ -23,6 +24,7 @@ function login() {
         setError(false);
         setErrorMessage("");
         localStorage.clear();
+        setProcessing(true);
 
         axios
             .post(`http://api.studyproject.one/login`, {
@@ -37,14 +39,15 @@ function login() {
                 if (response?.success) {
                     localStorage.clear();
                     localStorage.setItem('user', JSON.stringify({ username, type: response?.type }));
-                    router.push('/')
+                    router.push('/');
                 } else {
                     errorHandler(response?.msg)
                 }
             })
             .catch((err) => {
                 errorHandler(err?.response?.data?.error);
-            });
+            })
+            .finally(() => setProcessing(false));
     };
     
     return(
@@ -76,7 +79,7 @@ function login() {
                     }
 
                     <div className="d-flex justify-content-center align-items-center">
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" disabled={processing}>
                             Login
                         </Button>
                         <span className="mx-4">
