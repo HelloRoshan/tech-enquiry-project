@@ -18,8 +18,6 @@ function subtraction(props) {
   }, [question])
 
 
-
-  
  
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
@@ -41,11 +39,6 @@ function subtraction(props) {
           category={category}
         
         />
-
-
-
-       
-
 
       </Card>
 

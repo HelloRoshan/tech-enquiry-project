@@ -29,11 +29,7 @@ function Levels() {
                 3
             </Button>
             </Link>
-            <Link href={{ pathname: '/category', query: { level: '4' } }} variant="primary">
-             <Button variant="primary" size="lg" className='mb-3'>
-                4
-            </Button>
-            </Link>
+            
             </Card>
         </div>
      
