@@ -24,14 +24,14 @@ function multiplication(props) {
 
   
 
-    const onClickNext=()=>{
-      let lenQues = quesList?.length
-      if(count < lenQues){
-        setCount(count+1)
-      }else{
-        setCount(0)
-      }
-    }
+    // const onClickNext=()=>{
+    //   let lenQues = quesList?.length
+    //   if(count < lenQues){
+    //     setCount(count+1)
+    //   }else{
+    //     setCount(0)
+    //   }
+    // }
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
     <div className="d-grid gap-4">
@@ -48,14 +48,7 @@ function multiplication(props) {
              />
              
              
-            {count}
-            <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickNext(count)
-                                             
-                                            }>
-                        <h4>
-                            Next
-                        </h4>
-                    </Button>
+            ÷
             {/* {quesList?.map(
             (item, i) => (
               // <BasicTableCard>

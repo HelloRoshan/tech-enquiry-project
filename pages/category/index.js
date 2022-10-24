@@ -23,28 +23,28 @@ setQues(param)
           
             <Card className='p-4 rounded shadow-lg'>
                 <h1 className='mb-4'>Select Arithmetic Problem</h1>
-                <Link href='/category/addition' variant="primary">
+                <Link href={{pathname:'/category/addition', query: { level: level, category: 1 }}} variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(1)}>
                         <h2>
                             Add +
                         </h2>
                     </Button>
                 </Link>
-                <Link href='/category/subtraction' variant="primary">
+                <Link href={{pathname:'/category/subtraction', query: { level: level, category: 2 }}} variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(2)}>
                         <h2>
                             Subtract -
                         </h2>
                     </Button>
                 </Link>
-                <Link href='/category/multiplication' variant="primary">
+                <Link href={{pathname:'/category/multiplication', query: { level: level, category: 3 }}} variant="primary">
                     <Button variant="primary" size="lg" className='mb-3' onClick={()=>handleSetQues(3)}>
                         <h2>
                             Multiply X
                         </h2>
                     </Button>
                 </Link>
-                <Link href='/category/division' variant="primary">
+                <Link href={{pathname:'/category/division', query: { level: level, category: 4 }}} variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(3)}>
                         <h2>
                             Divide /

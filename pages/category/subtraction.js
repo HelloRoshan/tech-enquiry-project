@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 import { Container, Button, Card} from 'react-bootstrap';
 import {setQues} from "../../src/actions/questionActions"
 import Question from '../../components/Question';
+import category from '.';
 
 function subtraction(props) {
-    const {question, setQues} = props
+    const {question, level} = props
     const [quesList, setQuesList]= useState([])
-    const [count,setCount]=useState(1)
+    // const [count,setCount]=useState(1) 
     useEffect(()=>{
+      console.log(level)
     //  const quesParams={
     //   level=
     //  }
@@ -24,14 +26,14 @@ function subtraction(props) {
 
   
 
-    const onClickNext=()=>{
-      let lenQues = quesList.length
-      if(count < lenQues){
-        setCount(count+1)
-      }else{
-        setCount(0)
-      }
-    }
+    // const onClickNext=()=>{
+    //   let lenQues = quesList.length
+    //   if(count < lenQues){
+    //     setCount(count+1)
+    //   }else{
+    //     setCount(0)
+    //   }
+    // }
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
     
@@ -43,8 +45,11 @@ function subtraction(props) {
              */}
              <Question
              quesList={quesList ? quesList:{}}
-             questionNumber={count}
-             totalQuestions={quesList?.length}
+             setQuesList={setQuesList}
+             level={level}
+             category={category}
+            //  questionNumber={count}
+            //  totalQuestions={quesList?.length}
              />
              
              
@@ -67,7 +72,11 @@ function subtraction(props) {
             </Container>
   )
 }
+subtraction.getInitialProps = async ({ query }) => {
+  const {level, category} = query
 
+  return {level, category}
+}
 subtraction.propTypes = {
     setQues: PropTypes.func.isRequired,
     
