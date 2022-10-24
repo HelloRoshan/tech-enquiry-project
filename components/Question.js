@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import { Card, Form, Button, ProgressBar, Tooltip, Overlay } from 'react-bootstrap';
+import { Card, Form, Button, ProgressBar, Tooltip, Overlay, Collapse} from 'react-bootstrap';
 import Link from 'next/link';
 import {setQues} from "./../src/actions/questionActions"
 /* Sample data for use of component */
@@ -62,7 +62,7 @@ function Question(props) {
     // }, [question])
 
     return (
-        <Card className="p-3 w-75">
+        <Card className="p-4 mb-4 w-75">
             
 
             {
@@ -83,7 +83,7 @@ function Question(props) {
                             <div className="mb-3 d-flex justify-content-between">
 
                                 <div className="w-75">
-                                    <ProgressBar variant="success" now={(count + 1 / quesList.length) * 100} />
+                                    <ProgressBar variant="success" now={(count / quesList.length) * 100} />
                                     <h5 class="text-warning fs-6">Question {count + 1}/{quesList.length}</h5>
                                 </div>
                                 <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
@@ -95,7 +95,7 @@ function Question(props) {
                                     )}
                                 </Overlay>
                             </div>
-                            <Card.Title className="mb-4 d-flex justify-content-center" style={{fontSize:100}}>
+                            <Card.Title className="mb-4 d-flex justify-content-center" style={level === "3" ? {fontSize:36, margin:12}:{fontSize:100}}>
                                
                                     <div >{quesList[count]?.question}</div>
                                 
@@ -104,59 +104,62 @@ function Question(props) {
                             <Card.Body className="p-0">
                                 {/* TODO: Show input and options based on question type */}
                                 {
-                                    quesList[count]?.question_type
-                                        ?
-                                        <Form.Control
-                                            type="text"
-                                            className="mb-4"
-                                            placeholder="Enter Your Answer Here..."
-                                            onChange={(e) => setInputAnswer(e.target.value)}
-                                            value={inputAnswer}
-                                        />
-                                        :
-                                        <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
+                                    level === "1" ?
+                                    <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
                                             {
                                                 quesList[count]?.options?.map((option) =>
                                                     <Button
-                                                        variant={selectedAnswer == option ? "info" : "light"}
-                                                        className={"rounded mb-4 pt-4 pb-4 border " + (selectedAnswer == option ? 'shadow' : '')}
+                                                        variant={inputAnswer == option ? "warning" : "light"}
+                                                        className={"rounded mb-3 pt-3 pb-3 border " + (inputAnswer == option ? 'shadow' : '')}
                                                         style={{ width: "45%" }}
-                                                        onClick={() => setSelectedAnswer(option)}>
+                                                        onClick={() => setInputAnswer(option)}
+                                                        disabled={correctAns ===false ? true: false}
+                                                        >
                                                         <Form.Check
                                                             varrant
                                                             inline
                                                             label={option}
                                                             name={`question-${count}`}
-                                                            checked={selectedAnswer == option}
+                                                            checked={inputAnswer == option}
                                                             type="radio"
                                                             id={`inline-radio-${count}`}
                                                         />
                                                     </Button>
                                                 )
                                             }
-                                        </div>
+                                        </div>:
+                                      
+                                        <Form.Control
+                                            type="text"
+                                            className="mb-4"
+                                            placeholder="Enter Your Answer Here..."
+                                            onChange={(e) => setInputAnswer(e.target.value)}
+                                            value={inputAnswer}
+                                         size="lg"
+                                        /> 
                                 }
                             </Card.Body>
-                            <Button variant="warning" onClick={() => handleSubmitAnswer(inputAnswer)} disabled={(correctAns === true || correctAns === false) ? true : false}>Submit</Button>
-
+                            
+                            
                             {correctAns ?
                                 (
                                     <>
-                                        <h2>Congratulation !!! </h2>
-                                        <h3>Click on next for next question.</h3>
+                                    
+                                        <h2 className='text-success'> Correct Answer </h2>
+                                      
 
-                                        <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickNext(count)
+                                        <Button variant="info" size="lg" className='mb-3' onClick={() => onClickNext(count)
 
                                         }>
-                                            <h4>
+                                            <h4 className='text-white'>
                                                 Next
                                             </h4>
                                         </Button>
                                     </>) : (
                                     correctAns === false ?
                                         (<>
-                                            <h2>Wrong !!</h2>
-                                            <Button variant="primary" size="lg" className='mb-3' onClick={() => onClickTryAgain(count)
+                                            <h2 className='text-danger'>Wrong Answer</h2>
+                                            <Button variant="info" size="lg" className='mb-3 text-white' onClick={() => onClickTryAgain(count)
 
                                             }>
                                                 <h4>
@@ -167,7 +170,7 @@ function Question(props) {
 
                                         </>)
 
-                                        : [])
+                                        : <Button variant="warning" onClick={() => handleSubmitAnswer(inputAnswer)} disabled={(correctAns === true || correctAns === false) ? true : false}>Submit</Button>)
                             }
                         </>
                     )
