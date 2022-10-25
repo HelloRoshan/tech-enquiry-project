@@ -1,0 +1,38 @@
+:root {
+    --prime-1: #EA047E;
+    --prime-2: #FF6D28;
+    --prime-3: #FCE700;
+    --prime-4: #00F5FF;
+}
+
+.text-prime-1 {
+    color: var(--prime-1) !important;
+}
+
+.text-prime-2 {
+    color: var(--prime-2) !important;
+}
+
+.text-prime-3 {
+    color: var(--prime-3) !important
+}
+
+.text-prime-4 {
+    color: var(--prime-4)  !important;
+}
+
+.background-prime-1 {
+    background-color: var(--prime-1)  !important;
+}
+
+.background-prime-2 {
+    background-color: var(--prime-2)  !important;
+}
+
+.background-prime-3 {
+    background-color: var(--prime-3)  !important;
+}
+
+.background-prime-4 {
+    background-color: var(--prime-4)  !important;
+}

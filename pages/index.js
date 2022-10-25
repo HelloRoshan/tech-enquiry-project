@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,8 +17,30 @@ function App() {
     router.replace('/login');
   };
 
+  const username = JSON.parse(localStorage.getItem('user'))?.username;
+
+  const greetings = () => {
+    let dateToday = new Date();
+    let hrs = dateToday.getHours();
+    let greet;
+
+    if (hrs < 12) {
+      greet = 'Good Morning';
+    } else if (hrs >= 12 && hrs <= 17) {
+      greet = 'Good Afternoon';
+    } else if (hrs >= 17 && hrs <= 24) {
+      greet = 'Good Evening';
+    }
+    return greet;
+  }
+
   return (
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
+        <Card className='d-flex justify-content-center p-4 rounded shadow-lg' style={{width: 400, height:400}}>
+          <div className="mb-3">
+            <h5 className="mb-0">{ greetings() }</h5>
+            <h2 className="text-prime-2">{username}</h2>
+          </div>
         <div className="d-grid gap-4">
           <Link href='/levels' variant="primary">
             <Button variant="primary" size="lg">
@@ -54,6 +76,7 @@ function App() {
             </Modal.Footer>
           </Modal>
         </div>
+        </Card>
       </Container>
   );
 }
