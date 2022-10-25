@@ -18,6 +18,7 @@ function App() {
   };
 
   const username = JSON.parse(localStorage.getItem('user'))?.username;
+  const userType = JSON.parse(localStorage.getItem('user'))?.type;
 
   const greetings = () => {
     let dateToday = new Date();
@@ -52,11 +53,20 @@ function App() {
               Leader Board
             </Button>
           </Link>
-           <Link href='/feedbacks' variant="primary">
-            <Button variant="primary" size="lg">
-              Feedbacks
-            </Button>
-          </Link>
+          { userType == 1 &&
+            <Link href='/feedbacks' variant="primary">
+              <Button variant="primary" size="lg">
+                Feedbacks
+              </Button>
+            </Link>
+          }
+          { userType == 0 &&
+            <Link href='/dashboard' variant="primary">
+              <Button variant="primary" size="lg">
+                Dashboard
+              </Button>
+            </Link>
+          }
           <Button variant="primary" size="lg" onClick={handleShow}>
             Logout
           </Button>

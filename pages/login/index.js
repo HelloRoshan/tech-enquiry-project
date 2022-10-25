@@ -38,7 +38,7 @@ function login() {
 
                 if (response?.success) {
                     localStorage.clear();
-                    localStorage.setItem('user', JSON.stringify({ username, type: response?.type }));
+                    localStorage.setItem('user', JSON.stringify(response));
                     router.push('/');
                 } else {
                     errorHandler(response?.msg)
