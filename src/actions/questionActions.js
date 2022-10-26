@@ -20,7 +20,7 @@ export const setQues = (param)=>(dispatch)=>{
     .catch((err) =>
       dispatch({
         type: GET_ERROR,
-        payload: err.response.data,
+        payload: err.response?.data,
       }),
       
     );
