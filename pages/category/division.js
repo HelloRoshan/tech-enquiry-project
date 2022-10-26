@@ -10,6 +10,7 @@ import category from '.';
 function division(props) {
   const { question, level } = props
   const [quesList, setQuesList] = useState([])
+  const [username, setUsername]=useState("")
   
 
   useEffect(() => {
@@ -17,7 +18,12 @@ function division(props) {
     setQuesList(question?.question?.results)
   }, [question])
 
-
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('username'));
+    if (items) {
+     setUsername(items);
+    }
+  }, []);
  
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
@@ -37,6 +43,7 @@ function division(props) {
           setQuesList={setQuesList}
           level={level}
           category={category}
+          username={username}
         
         />
 
