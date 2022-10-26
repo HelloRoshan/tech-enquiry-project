@@ -16,7 +16,7 @@ function leaderboard(props) {
     }, [])
 
     useEffect(() => {
-        console.log(highScoreList)
+      
         setLeaderboardList(highScoreList?.highScoreList)
     }, [highScoreList])
 

@@ -10,7 +10,7 @@ import category from '.';
 function subtraction(props) {
   const { question, level } = props
   const [quesList, setQuesList] = useState([])
-  const [username, setUsername]=useState("")
+  
   
 
   useEffect(() => {
@@ -18,12 +18,7 @@ function subtraction(props) {
     setQuesList(question?.question?.results)
   }, [question])
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('username'));
-    if (items) {
-     setUsername(items);
-    }
-  }, []);
+  
 
 
 
@@ -47,7 +42,7 @@ function subtraction(props) {
           setQuesList={setQuesList}
           level={level}
           category={category}
-        username={username}
+       
         />
 
       </Card>

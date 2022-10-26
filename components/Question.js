@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import { Card, Form, Button, ProgressBar, Tooltip, Overlay, Collapse} from 'react-bootstrap';
+import { Card, Form, Button, ProgressBar, Tooltip, Overlay, Collapse, Row,Col} from 'react-bootstrap';
 import Link from 'next/link';
 import {setQues} from "./../src/actions/questionActions"
+import { setScore } from '../src/actions/scoreActions';
+import {connect} from "react-redux"
+import PropTypes from "prop-types";
+import {GiTrophyCup} from "react-icons/gi"
 /* Sample data for use of component */
 {/* <Question question={{
 id: 1,
@@ -19,15 +23,19 @@ questionNumber="10"
 totalQuestions="20" /> */}
 
 function Question(props) {
-    const { questionNumber, totalQuestions, quesList, level, category} = props
+    const { questionNumber, totalQuestions, quesList, level, category,setScore} = props
     const [inputAnswer, setInputAnswer] = useState("");
     const [selectedAnswer, setSelectedAnswer] = useState("null");
     const [showHint, setShowHint] = useState(false);
     const [correctAns, setCorrectAns] = useState();
     const [levelComplete, setLevelComplete] = useState();
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
+    
+    // const [username, setUsername]=useState("")
     const target = useRef(null);
-
+    const username = JSON.parse(localStorage.getItem('user'))?.username;
+    const score = JSON.parse(localStorage.getItem('score'))?.results[0]?.score;
+    const [newScore, setNewScore]=useState(score);
     const handleSubmitAnswer = (inputAnswer) => {
         console.log(quesList[count]?.options[quesList[count]?.correct_answer])
         if (parseInt(inputAnswer) === quesList[count]?.options[quesList[count]?.correct_answer]) {
@@ -35,6 +43,13 @@ function Question(props) {
                 setLevelComplete(true)
             } else {
                 setCorrectAns(true)
+                setNewScore(newScore+1)
+                let parameter={
+                    username: username,
+                    score:newScore+1
+                }
+                
+                setScore(parameter)
             }
         } else {
             setCorrectAns(false)
@@ -81,21 +96,31 @@ function Question(props) {
                         </Card.Body>
                     ) : (
                         <>
-                        <div className='pb-2'><h4 className='text-success'>Level {level}</h4></div>
+                        <div className='d-flex justify-content-between align-items-center pb-2'>
+                            <h2 className='text-success'><strong>Level {level}</strong></h2>
+                            <div className='d-flex'>
+                            <GiTrophyCup
+            size="70px"
+            color="#FFD400"
+            />
+            <div className='d-flex align-items-bottom justify-content-left' style={{fontSize: 54, color:"orange"}}><strong>{newScore}</strong></div>
+            </div>
+                        </div>
+                       
                             <div className="mb-3 d-flex justify-content-between">
 
-                                <div className="w-75">
+                                <div className="w-100">
                                     <ProgressBar variant="success" now={(count / quesList.length) * 100} />
                                     <h5 class="text-warning fs-6">Question {count + 1}/{quesList.length}</h5>
                                 </div>
-                                <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
+                                {/* <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
                                 <Overlay target={target.current} show={showHint} placement="right">
                                     {(props) => (
                                         <Tooltip id="overlay-example" {...props}>
                                             Here we will add hint specific to each question
                                         </Tooltip>
                                     )}
-                                </Overlay>
+                                </Overlay> */}
                             </div>
                             <Card.Title className="mb-4 d-flex justify-content-center" style={level === "3" ? {fontSize:36, margin:12}:{fontSize:100}}>
                                
@@ -181,5 +206,16 @@ function Question(props) {
         </Card>
     )
 }
-
-export default Question;
+Question.propTypes = {
+    setScore: PropTypes.func.isRequired,
+    
+  };
+const mapStateToProps = (state) => 
+   ( {
+    score:state.score
+})
+   
+   const mapDispatchToProps = {
+    setScore
+   }
+export default connect(mapStateToProps, mapDispatchToProps) (Question);
