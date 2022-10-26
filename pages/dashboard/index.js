@@ -43,7 +43,7 @@ function dashboard() {
 
 
     const [leaderboardList, setLeaderboardList] = useState([]);
-    const labels = ['Student\'s Username']
+    const labels = ['Students']
     const [datasets, setDataSets] = useState([]);
 
     const options = {
