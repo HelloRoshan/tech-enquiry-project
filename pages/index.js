@@ -42,6 +42,7 @@ function App() {
             <h5 className="mb-0">{ greetings() }</h5>
             <h2 className="text-prime-2">{username}</h2>
           </div>
+
         <div className="d-grid gap-4">
           <Link href='/levels' variant="primary">
             <Button variant="primary" size="lg">
