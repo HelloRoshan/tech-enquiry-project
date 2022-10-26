@@ -7,20 +7,6 @@ import {setQues} from "./../src/actions/questionActions"
 import { getScore, setScore } from '../src/actions/scoreActions';
 
 import {GiTrophyCup} from "react-icons/gi"
-/* Sample data for use of component */
-{/* <Question question={{
-id: 1,
-quiz_id: 1,
-question: "1+2",
-question_image: null,
-options: [1,2,3,4],
-options_image: null,
-correct_answer: 2,
-level: 1,
-question_type: null
-}}
-questionNumber="10"
-totalQuestions="20" /> */}
 
 function Question(props) {
     const { questionNumber, totalQuestions, quesList, level, category,setScore,getScore,score} = props
@@ -139,9 +125,7 @@ function Question(props) {
                                     <div >{quesList[count]?.question}</div>
                                 
                             </Card.Title>
-                            {/* TODO: Add Button with tooltip for Hint */}
                             <Card.Body className="p-0">
-                                {/* TODO: Show input and options based on question type */}
                                 {
                                     level === "1" ?
                                     <div className="d-flex flex-wrap flex-row justify-content-between mb-4">

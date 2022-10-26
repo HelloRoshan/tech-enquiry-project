@@ -27,14 +27,17 @@ function dashboard() {
             .then((res) => {
                 const mappedDataSets = res?.data?.results.map((item, index) => {
                     return {
-                        label: item.user_name,
-                        data: [item.score],
-                        borderWidth: (index == 0 || index == res?.data?.results.length - 1) ? 1 : 0,
-                        backgroundColor: index == 0 ? 'green' : index == res?.data?.results.length - 1 ? 'red' : '#ccc'
+                        x: item.user_name,
+                        y: item.score,
                     };
                 });
                 setLeaderboardList(res?.data?.results);
-                setDataSets(mappedDataSets);
+                setDataSets([
+                    {
+                        data: mappedDataSets,
+                        backgroundColor: '#40c840'
+                    }
+                ]);
             })
             .catch((err) => {
                 console.log(err);
@@ -43,12 +46,10 @@ function dashboard() {
 
 
     const [leaderboardList, setLeaderboardList] = useState([]);
-    const labels = ['Student\'s Username']
     const [datasets, setDataSets] = useState([]);
 
     const options = {
-        responsive: true,
-        maintainAspectRatio: false
+        responsive: false,
     };
 
 
@@ -81,9 +82,10 @@ function dashboard() {
     return (
         <Container className="pt-5 pb-5 d-flex align-items-center justify-content-center">
                 <Card className="shadow-lg rounded-3 p-5 w-100">
+                    <h2 className="text-prime-2 mb-4">Teacher Dashboard</h2>
                     <div className="d-flex">
-                        <div className="w-50">
-                            <h4 className='mb-3'>Student Leaderboard</h4>
+                        <div className="w-50 border p-3">
+                            <h4 className='mb-3'>Student Leaderboard List</h4>
                             <ListGroup as="ol" numbered>
                                 {
                                     leaderboardList.map((leaderboardItem, index) => 
@@ -106,7 +108,10 @@ function dashboard() {
                                 }
                             </ListGroup>
                         </div>
-                        <Bar options={options} data={{labels, datasets}} className="w-50 ms-4" />
+                        <div className="w-50 border p-3">
+                            <h4 className='mb-3'>Student Leaderboard Graph</h4>
+                            <Bar options={options} data={{datasets}} className="border-1 mt-5 ms-4" />
+                        </div>
                     </div>
 
                     <Modal show={showFeedbackSendModal} onHide={handleClose}>

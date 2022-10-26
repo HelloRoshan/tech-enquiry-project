@@ -22,7 +22,7 @@ setQues(param)
         <div className="d-grid gap-4">
           
             <Card className='d-flex  justify-content-center p-4 rounded shadow-lg'>
-                <h1 className='mb-4'>Select Arithmetic Problem</h1>
+                <h1 className='mb-4 text-prime-2'>Select Arithmetic Problem</h1>
                 <Link href={{pathname:'/category/addition', query: { level: level, category: 1 }}} variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(1)}>
                         <h2>
@@ -50,6 +50,9 @@ setQues(param)
                             Divide /
                         </h2>
                     </Button>
+                </Link>
+                <Link href="/levels" variant="primary">
+                    <Button variant="primary" size="lg" className="mt-5 ms-auto me-auto">Back</Button>
                 </Link>
             </Card>
             
