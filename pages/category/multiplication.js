@@ -10,7 +10,17 @@ import category from '.';
 function multiplication(props) {
   const { question, level } = props
   const [quesList, setQuesList] = useState([])
+  const [username, setUsername]=useState("")
   
+
+ 
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('username'));
+    if (items) {
+     setUsername(items);
+    }
+  }, []);
 
   useEffect(() => {
     // console.log(question)
@@ -37,7 +47,7 @@ function multiplication(props) {
           setQuesList={setQuesList}
           level={level}
           category={category}
-        
+        username={username}
         />
 
       </Card>

@@ -10,12 +10,23 @@ import category from '.';
 function addition(props) {
   const { question, level } = props
   const [quesList, setQuesList] = useState([])
+  const [username, setUsername]=useState("")
   
 
   useEffect(() => {
     // console.log(question)
     setQuesList(question?.question?.results)
   }, [question])
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('user'));
+    console.log(items)
+    if (items) {
+     setUsername(items.username);
+    }
+  }, []);
+
+ 
 
 
  
@@ -37,7 +48,7 @@ function addition(props) {
           setQuesList={setQuesList}
           level={level}
           category={category}
-        
+        username={username}
         />
 
       </Card>
