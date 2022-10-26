@@ -29,7 +29,7 @@ function StarRating({ clickable, onChange, score }) {
                     ))
                 }
             </span>
-            <div className="mt-2 text-prime-2">{ratingLabels[clickable ? score - 1 : rating - 1]}</div>
+            <div className="mt-2 text-prime-2 fs-4">{ratingLabels[clickable ? rating - 1 : score - 1]}</div>
         </>
     );
 }

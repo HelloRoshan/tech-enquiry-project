@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Card, ListGroup, Modal } from 'react-bootstrap';
+import { Container, Button, Card, ListGroup, Modal, Form, ToastContainer, Toast } from 'react-bootstrap';
 import Link from 'next/link';
 import StarRating from '../../components/StarComponent/StarRating';
 
@@ -33,7 +33,10 @@ function dashboard() {
     ]);
 
     const [showFeedbackSendModal, setShowFeedbackSendModal] = useState(false);
+    const [showToast, setShowToast] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const [userRating, setUserRating] = useState(0);
+    const [userComment, setUserComment] = useState("");
 
     const handleClose = () => {
         setCurrentUser(null)
@@ -47,7 +50,11 @@ function dashboard() {
 
     const handleSendFeedback = () => {
         /* code to send feedback with success message */
-        setCurrentUser(null);   
+        console.log(userRating, userComment.trim())
+        setShowToast(true);
+        setCurrentUser(null);
+        setUserComment("");
+        setUserRating(0);
         setShowFeedbackSendModal(false);
     }
 
@@ -82,17 +89,26 @@ function dashboard() {
                         <Modal.Header closeButton>
                             <Modal.Title>
                                 Send Feedback to <span className='text-prime-2'>{currentUser}</span>
+                                <h5 className="fs-6 fw-light text-secondary">Add Rating and Comment for the Student</h5>
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <StarRating clickable={true} />
-                            Woohoo, you're reading this text in a modal!
+                            <StarRating clickable={true} className="fs-2 text" onChange={(rating) => setUserRating(rating)} />
+                            <Form.Group className="mb-3 mt-4" controlId="formBasicEmail">
+                                <Form.Control
+                                    as="textarea"
+                                    placeholder="Add comment here..."
+                                    rows={4}
+                                    value={userComment}
+                                    onChange={(e) => setUserComment(e.target.value)}
+                                />
+                            </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
                             </Button>
-                            <Button variant="primary" onClick={handleSendFeedback}>
+                            <Button variant="primary" onClick={handleSendFeedback} disabled={!(userRating && userComment)}>
                                 Send Feedback
                             </Button>
                         </Modal.Footer>
@@ -102,7 +118,14 @@ function dashboard() {
                         <Button variant="primary" size="lg" className="mt-5 w-25 ms-auto me-auto">Back</Button>
                     </Link>
                 </Card>
-
+                <ToastContainer  position="top-end">
+                    <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                        <Toast.Header>
+                            <strong className="me-auto text-success">Success</strong>
+                        </Toast.Header>
+                        <Toast.Body>Feedback Sent Successfully</Toast.Body>
+                    </Toast>
+                </ToastContainer>
                 
         </Container>
     )

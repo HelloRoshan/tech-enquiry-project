@@ -3,7 +3,8 @@ import { FaStar } from "react-icons/fa";
 
 function Star({ filled, onClick }) {
     return (
-    <FaStar 
+    <FaStar
+        className="fs-2"
         color={filled ? "orange" : "lightgray"}
         onClick={onClick} />
   );
