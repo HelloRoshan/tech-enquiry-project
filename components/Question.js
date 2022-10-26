@@ -3,20 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Card, Form, Button, ProgressBar, Tooltip, Overlay, Collapse} from 'react-bootstrap';
 import Link from 'next/link';
 import {setQues} from "./../src/actions/questionActions"
-/* Sample data for use of component */
-{/* <Question question={{
-id: 1,
-quiz_id: 1,
-question: "1+2",
-question_image: null,
-options: [1,2,3,4],
-options_image: null,
-correct_answer: 2,
-level: 1,
-question_type: null
-}}
-questionNumber="10"
-totalQuestions="20" /> */}
 
 function Question(props) {
     const { questionNumber, totalQuestions, quesList, level, category} = props
@@ -84,11 +70,11 @@ function Question(props) {
                         <div className='pb-2'><h4 className='text-success'>Level {level}</h4></div>
                             <div className="mb-3 d-flex justify-content-between">
 
-                                <div className="w-75">
+                                <div className="w-100">
                                     <ProgressBar variant="success" now={(count / quesList.length) * 100} />
                                     <h5 class="text-warning fs-6">Question {count + 1}/{quesList.length}</h5>
                                 </div>
-                                <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button>
+                                {/* <Button variant="info" ref={target} className="text-white" onClick={() => setShowHint(!showHint)}>Hint?</Button> */}
                                 <Overlay target={target.current} show={showHint} placement="right">
                                     {(props) => (
                                         <Tooltip id="overlay-example" {...props}>
@@ -102,9 +88,7 @@ function Question(props) {
                                     <div >{quesList[count]?.question}</div>
                                 
                             </Card.Title>
-                            {/* TODO: Add Button with tooltip for Hint */}
                             <Card.Body className="p-0">
-                                {/* TODO: Show input and options based on question type */}
                                 {
                                     level === "1" ?
                                     <div className="d-flex flex-wrap flex-row justify-content-between mb-4">
