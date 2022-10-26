@@ -3,17 +3,19 @@ import axios from 'axios';
 import { Button, Modal, Card, Row,Col} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
+import {connect} from "react-redux"
+import PropTypes from "prop-types";
 import { useRouter } from 'next/router';
 import {GiTrophyCup} from 'react-icons/gi'
+import { getScore } from '../src/actions/scoreActions';
 
-function App() {
+function App(props) {
+  const {getScore, score}=props;
   const router = useRouter();
 
   const [showLogoutModal, setLogoutModal] = useState(false);
-  const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [processing, setProcessing] = useState(false);
-    const [score,setScore]=useState(0);
+  
+    const [userScore,setUserScore]=useState(0);
 
     const errorHandler= (err) => {
       const errorMessage = err || 'Error';
@@ -49,26 +51,33 @@ function App() {
   }
 
   useEffect(()=>{
-    axios
-    .get(`http://api.studyproject.one/gethighscore?username=${username}`)
-    .then((res) => {
-        setError(false);
-        setErrorMessage("");
-        const response = res?.data;
+    getScore(username)
+    // axios
+    // .get(`http://api.studyproject.one/gethighscore?username=${username}`)
+    // .then((res) => {
+    //     setError(false);
+    //     setErrorMessage("");
+    //     const response = res?.data;
      
-        if (response?.success) {
+    //     if (response?.success) {
          
-            setScore(response?.results[0]?.score)
-            localStorage.setItem('score', JSON.stringify(response));
-        } else {
-            errorHandler(response?.msg)
-        }
-    })
-    .catch((err) => {
-        errorHandler(err?.response?.data?.error);
-    })
-    .finally(() => setProcessing(false));
+    //         setScore(response?.results[0]?.score)
+    //         localStorage.setItem('score', JSON.stringify(response));
+    //     } else {
+    //         errorHandler(response?.msg)
+    //     }
+    // })
+    // .catch((err) => {
+    //     errorHandler(err?.response?.data?.error);
+    // })
+    // .finally(() => setProcessing(false));
   },[])
+  
+  useEffect(()=>{
+    console.log(score)
+    if(score?.userScore?.results){
+    setUserScore(score?.userScore.results[0]?.score)}
+  },[score])
 
   return (
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
@@ -82,7 +91,7 @@ function App() {
             size="70px"
             color="#FFD400"
             /></Col>
-            <Col className='d-flex justify-content-center align-items-center' style={{fontSize: 54, color:"orange"}}><strong>{score}</strong></Col>
+            <Col className='d-flex justify-content-center align-items-center' style={{fontSize: 54, color:"orange"}}><strong>{userScore}</strong></Col>
             
           </Row>
 
@@ -134,6 +143,18 @@ function App() {
       </Container>
   );
 }
-
-export default App;
+App.propTypes = {
+  getScore: PropTypes.func.isRequired,
+  
+};
+const mapStateToProps = (state) => 
+ ( {
+  score:state.score,
+  
+})
+ 
+ const mapDispatchToProps = {
+  getScore
+ }
+export default connect(mapStateToProps, mapDispatchToProps)  (App);
 

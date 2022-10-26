@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-
+import {connect} from "react-redux"
+import PropTypes from "prop-types";
 import { Card, Form, Button, ProgressBar, Tooltip, Overlay, Collapse, Row,Col} from 'react-bootstrap';
 import Link from 'next/link';
 import {setQues} from "./../src/actions/questionActions"
-import { setScore } from '../src/actions/scoreActions';
-import {connect} from "react-redux"
-import PropTypes from "prop-types";
+import { getScore, setScore } from '../src/actions/scoreActions';
+
 import {GiTrophyCup} from "react-icons/gi"
 /* Sample data for use of component */
 {/* <Question question={{
@@ -23,7 +23,7 @@ questionNumber="10"
 totalQuestions="20" /> */}
 
 function Question(props) {
-    const { questionNumber, totalQuestions, quesList, level, category,setScore} = props
+    const { questionNumber, totalQuestions, quesList, level, category,setScore,getScore,score} = props
     const [inputAnswer, setInputAnswer] = useState("");
     const [selectedAnswer, setSelectedAnswer] = useState("null");
     const [showHint, setShowHint] = useState(false);
@@ -34,8 +34,16 @@ function Question(props) {
     // const [username, setUsername]=useState("")
     const target = useRef(null);
     const username = JSON.parse(localStorage.getItem('user'))?.username;
-    const score = JSON.parse(localStorage.getItem('score'))?.results[0]?.score;
-    const [newScore, setNewScore]=useState(score);
+    
+    useEffect(()=>{
+        getScore(username);
+    },[])
+    const [newScore, setNewScore]=useState(0);
+
+    useEffect(()=>{
+        setNewScore(score?.userScore?.results[0]?.score)
+    },[score])
+
     const handleSubmitAnswer = (inputAnswer) => {
         console.log(quesList[count]?.options[quesList[count]?.correct_answer])
         if (parseInt(inputAnswer) === quesList[count]?.options[quesList[count]?.correct_answer]) {
@@ -43,13 +51,17 @@ function Question(props) {
                 setLevelComplete(true)
             } else {
                 setCorrectAns(true)
-                setNewScore(newScore+1)
+                // setNewScore(newScore+1)
                 let parameter={
                     username: username,
                     score:newScore+1
                 }
                 
                 setScore(parameter)
+                setTimeout(()=>{
+                    getScore(username)
+                },1000)
+                
             }
         } else {
             setCorrectAns(false)
@@ -208,6 +220,7 @@ function Question(props) {
 }
 Question.propTypes = {
     setScore: PropTypes.func.isRequired,
+    getScore:PropTypes.func.isRequired
     
   };
 const mapStateToProps = (state) => 
@@ -216,6 +229,7 @@ const mapStateToProps = (state) =>
 })
    
    const mapDispatchToProps = {
-    setScore
+    setScore,
+    getScore
    }
 export default connect(mapStateToProps, mapDispatchToProps) (Question);
