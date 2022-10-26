@@ -82,6 +82,7 @@ function dashboard() {
     return (
         <Container className="pt-5 pb-5 d-flex align-items-center justify-content-center">
                 <Card className="shadow-lg rounded-3 p-5 w-100">
+                    <h2 className="text-prime-2 mb-4">Teacher Dashboard</h2>
                     <div className="d-flex">
                         <div className="w-50 border p-3">
                             <h4 className='mb-3'>Student Leaderboard List</h4>
