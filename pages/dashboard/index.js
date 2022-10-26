@@ -1,36 +1,56 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Container, Button, Card, ListGroup, Modal, Form, ToastContainer, Toast } from 'react-bootstrap';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import Link from 'next/link';
 import StarRating from '../../components/StarComponent/StarRating';
 
 function dashboard() {
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        BarElement,
+        Title,
+        Tooltip,
+    );
     useEffect(() => {
+        axios
+            .get(`http://api.studyproject.one/gethighscore`)
+            .then((res) => {
+                const mappedDataSets = res?.data?.results.map((item, index) => {
+                    return {
+                        label: item.user_name,
+                        data: [item.score],
+                        borderWidth: (index == 0 || index == res?.data?.results.length - 1) ? 1 : 0,
+                        backgroundColor: index == 0 ? 'green' : index == res?.data?.results.length - 1 ? 'red' : '#ccc'
+                    };
+                });
+                setLeaderboardList(res?.data?.results);
+                setDataSets(mappedDataSets);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
-    });
 
-    const [leaderboardList, setLeaderboardList] = useState([
-        /* TODO: REMOVE and add real leaderboard */
-        {
-            user_name: 'Joseph Collin',
-            score: 27
-        },
-        {
-            user_name: 'Michael Burry',
-            score: 25
-        },
-        {
-            user_name: 'Suzanne Philip',
-            score: 21
-        },
-        {
-            user_name: 'Jonas Grum',
-            score: 13
-        },
-        {
-            user_name: 'Bridget Johns',
-            score: 13
-        },
-    ]);
+    const [leaderboardList, setLeaderboardList] = useState([]);
+    const labels = ['Student\'s Username']
+    const [datasets, setDataSets] = useState([]);
+
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false
+    };
+
 
     const [showFeedbackSendModal, setShowFeedbackSendModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
@@ -60,30 +80,34 @@ function dashboard() {
 
     return (
         <Container className="pt-5 pb-5 d-flex align-items-center justify-content-center">
-                <Card className="shadow-lg rounded-3 p-5 w-75">
-                    <h1 className='mb-5'>Student Leaderboard</h1>
-                    <ListGroup as="ol" numbered>
-                        {
-                            leaderboardList.map((leaderboardItem, index) => 
-                                <ListGroup.Item
-                                    key={index}
-                                    as="li"
-                                    className="d-flex">
-                                    <span className="ms-2">{leaderboardItem.user_name} </span>
-                                    <span className="ms-auto pe-4 border-end">{leaderboardItem.score}</span>
-                                    <Button
-                                        variant="primary"
-                                        size="sm"
-                                        className="ms-4"
-                                        onClick={ () => handleShow(leaderboardItem.user_name) }
-                                    >
-                                        Send Feedback
-                                    </Button>
-                                </ListGroup.Item>
-                            )
-                        }
-                    </ListGroup>
-
+                <Card className="shadow-lg rounded-3 p-5 w-100">
+                    <div className="d-flex">
+                        <div className="w-50">
+                            <h4 className='mb-3'>Student Leaderboard</h4>
+                            <ListGroup as="ol" numbered>
+                                {
+                                    leaderboardList.map((leaderboardItem, index) => 
+                                        <ListGroup.Item
+                                            key={index}
+                                            as="li"
+                                            className="d-flex">
+                                            <span className="ms-2">{leaderboardItem.user_name} </span>
+                                            <span className="ms-auto pe-4 border-end">{leaderboardItem.score}</span>
+                                            <Button
+                                                variant="primary"
+                                                size="sm"
+                                                className="ms-4"
+                                                onClick={ () => handleShow(leaderboardItem.user_name) }
+                                            >
+                                                Send Feedback
+                                            </Button>
+                                        </ListGroup.Item>
+                                    )
+                                }
+                            </ListGroup>
+                        </div>
+                        <Bar options={options} data={{labels, datasets}} className="w-50 ms-4" />
+                    </div>
 
                     <Modal show={showFeedbackSendModal} onHide={handleClose}>
                         <Modal.Header closeButton>
@@ -113,9 +137,8 @@ function dashboard() {
                             </Button>
                         </Modal.Footer>
                     </Modal>
-                    Add a small graph section with quick overview
                     <Link href="/" variant="primary">
-                        <Button variant="primary" size="lg" className="mt-5 w-25 ms-auto me-auto">Back</Button>
+                        <Button variant="primary" size="lg" className="mt-5 ms-auto me-auto">Back</Button>
                     </Link>
                 </Card>
                 <ToastContainer  position="top-end">
