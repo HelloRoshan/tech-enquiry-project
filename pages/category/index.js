@@ -45,7 +45,7 @@ setQues(param)
                     </Button>
                 </Link>
                 <Link href={{pathname:'/category/division', query: { level: level, category: 4 }}} variant="primary">
-                    <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(3)}>
+                    <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(4)}>
                         <h2>
                             Divide /
                         </h2>

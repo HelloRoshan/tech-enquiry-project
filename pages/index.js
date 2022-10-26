@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
-import { Button, Modal, Card } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Button, Modal, Card, Row,Col} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
+import {connect} from "react-redux"
+import PropTypes from "prop-types";
 import { useRouter } from 'next/router';
+import {GiTrophyCup} from 'react-icons/gi'
+import { getScore } from '../src/actions/scoreActions';
 
-function App() {
+function App(props) {
+  const {getScore, score}=props;
   const router = useRouter();
 
   const [showLogoutModal, setLogoutModal] = useState(false);
+  
+    const [userScore,setUserScore]=useState(0);
+
+    const errorHandler= (err) => {
+      const errorMessage = err || 'Error';
+      setErrorMessage(errorMessage);
+      setError(true);
+  }
+ 
 
   const handleClose = () => setLogoutModal(false);
   const handleShow = () => setLogoutModal(true);
@@ -35,13 +50,50 @@ function App() {
     return greet;
   }
 
+  useEffect(()=>{
+    getScore(username)
+    // axios
+    // .get(`http://api.studyproject.one/gethighscore?username=${username}`)
+    // .then((res) => {
+    //     setError(false);
+    //     setErrorMessage("");
+    //     const response = res?.data;
+     
+    //     if (response?.success) {
+         
+    //         setScore(response?.results[0]?.score)
+    //         localStorage.setItem('score', JSON.stringify(response));
+    //     } else {
+    //         errorHandler(response?.msg)
+    //     }
+    // })
+    // .catch((err) => {
+    //     errorHandler(err?.response?.data?.error);
+    // })
+    // .finally(() => setProcessing(false));
+  },[])
+  
+  useEffect(()=>{
+    console.log(score)
+    if(score?.userScore?.results){
+    setUserScore(score?.userScore.results[0]?.score)}
+  },[score])
+
   return (
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
-        <Card className='d-flex justify-content-center p-4 rounded shadow-lg' style={{width: 400, height:400}}>
+        <Card className='d-flex justify-content-center p-4 rounded shadow-lg' style={{width: 400, height:550}}>
           <div className="mb-3">
             <h5 className="mb-0">{ greetings() }</h5>
             <h2 className="text-prime-2">{username}</h2>
           </div>
+          <Row className="mb-3">
+            <Col className='d-flex justify-content-center align-items-center'><GiTrophyCup
+            size="70px"
+            color="#FFD400"
+            /></Col>
+            <Col className='d-flex justify-content-center align-items-center' style={{fontSize: 54, color:"orange"}}><strong>{userScore}</strong></Col>
+            
+          </Row>
 
         <div className="d-grid gap-4">
           <Link href='/levels' variant="primary">
@@ -91,6 +143,18 @@ function App() {
       </Container>
   );
 }
-
-export default App;
+App.propTypes = {
+  getScore: PropTypes.func.isRequired,
+  
+};
+const mapStateToProps = (state) => 
+ ( {
+  score:state.score,
+  
+})
+ 
+ const mapDispatchToProps = {
+  getScore
+ }
+export default connect(mapStateToProps, mapDispatchToProps)  (App);
 
