@@ -41,7 +41,7 @@ function App() {
   return (
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
         <Card className='d-flex justify-content-center p-4 rounded shadow-lg position-relative' style={{width: 400, height:400}}>
-          <Button className="rounded-5 border-1 position-absolute end-0 background-prime-2" variant="dark" style={{top: '-50px'}} >
+          <Button className="rounded-5 border-1 position-absolute end-0 background-prime-2" variant="dark" style={{top: '-50px', cursor: 'default'}} >
             <SlGameController fill="white" className="fs-2 me-2" /> Score: {userScore}
           </Button>
           <div className="mb-3">
