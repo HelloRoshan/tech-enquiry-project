@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,6 +19,8 @@ function App() {
 
   return (
       <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
+        
+        <Card className='d-flex  justify-content-center p-4 rounded shadow-lg' style={{width: 400, height:400}}>
         <div className="d-grid gap-4">
           <Link href='/levels' variant="primary">
             <Button variant="primary" size="lg">
@@ -53,7 +55,9 @@ function App() {
               </Button>
             </Modal.Footer>
           </Modal>
-        </div>
+          </div>
+          </Card>
+        
       </Container>
   );
 }

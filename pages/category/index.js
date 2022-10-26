@@ -21,7 +21,7 @@ setQues(param)
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
         <div className="d-grid gap-4">
           
-            <Card className='p-4 rounded shadow-lg'>
+            <Card className='d-flex  justify-content-center p-4 rounded shadow-lg'>
                 <h1 className='mb-4'>Select Arithmetic Problem</h1>
                 <Link href={{pathname:'/category/addition', query: { level: level, category: 1 }}} variant="primary">
                     <Button variant="primary" size="lg" className='mb-3'onClick={()=>handleSetQues(1)}>
