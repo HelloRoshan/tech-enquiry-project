@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Container, Button, Card, ListGroup } from 'react-bootstrap';
 import Link from 'next/link';
 import { BsFillTrophyFill } from "react-icons/bs";
-import { setLeaderboard } from '../../src/actions/leaderboardAction';
+import { setLeaderboard } from '../../src/actions/leaderBoardAction';
 
 function leaderboard(props) {
     const { highScoreList, setLeaderboard } = props
