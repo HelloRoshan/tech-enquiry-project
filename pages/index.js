@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button, Modal, Card, Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
@@ -52,31 +51,15 @@ function App(props) {
 
   useEffect(() => {
     getScore(username)
-    // axios
-    // .get(`http://api.studyproject.one/gethighscore?username=${username}`)
-    // .then((res) => {
-    //     setError(false);
-    //     setErrorMessage("");
-    //     const response = res?.data;
-
-    //     if (response?.success) {
-
-    //         setScore(response?.results[0]?.score)
-    //         localStorage.setItem('score', JSON.stringify(response));
-    //     } else {
-    //         errorHandler(response?.msg)
-    //     }
-    // })
-    // .catch((err) => {
-    //     errorHandler(err?.response?.data?.error);
-    // })
-    // .finally(() => setProcessing(false));
+    
   }, [])
 
   useEffect(() => {
-    console.log(score)
-    if (score?.userScore?.results) {
+    // console.log(score)
+    if (score?.userScore?.results[0]) {
       setUserScore(score?.userScore.results[0]?.score)
+    }else{
+      setUserScore(0)
     }
   }, [score])
 

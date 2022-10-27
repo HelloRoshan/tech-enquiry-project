@@ -28,8 +28,10 @@ function Question(props) {
     const [newScore, setNewScore] = useState(0);
 
     useEffect(() => {
-        if (score?.userScore?.results) {
+        if (score?.userScore?.results[0]) {
             setNewScore(score?.userScore?.results[0]?.score)
+        }else{
+            setNewScore(0)
         }
     }, [score])
 
