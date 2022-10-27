@@ -28,7 +28,7 @@ function registration() {
         setProcessing(true);
 
         axios
-            .post(`http://api.studyproject.one/register`, {
+            .post(`https://api.studyproject.one/register`, {
                 type: parseInt(role, 10),
                 fullname: fullName.trim(),
                 username: username.trim(),

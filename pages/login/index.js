@@ -27,7 +27,7 @@ function login() {
         setProcessing(true);
 
         axios
-            .post(`http://api.studyproject.one/login`, {
+            .post(`https://api.studyproject.one/login`, {
                 username: username.trim(),
                 password
             })
