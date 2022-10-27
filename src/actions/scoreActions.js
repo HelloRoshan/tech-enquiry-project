@@ -31,7 +31,7 @@ export const setScore = (param)=>(dispatch)=>{
 
 export const getScore=(param)=>(dispatch)=>{
     axios
-    .get(`http://api.studyproject.one/gethighscore?username=${param}`)
+    .get(`https://api.studyproject.one/gethighscore?username=${param}`)
    
     .then((res) =>
       dispatch({
