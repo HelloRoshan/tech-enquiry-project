@@ -55,8 +55,7 @@ function App(props) {
   }, [])
 
   useEffect(() => {
-    // console.log(score)
-    if (score?.userScore?.results[0]) {
+    if (score?.userScore?.results && score?.userScore?.results.length && score?.userScore?.results[0]) {
       setUserScore(score?.userScore.results[0]?.score)
     }else{
       setUserScore(0)
