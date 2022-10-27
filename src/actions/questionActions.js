@@ -6,7 +6,7 @@ import {
 
 export const setQues = (param)=>(dispatch)=>{
     axios
-    .get(`https://api.studyproject.one/questions?level=${param.level}&question_type=${param.type}`)
+    .get(`http://api.studyproject.one/questions?level=${param.level}&question_type=${param.type}`)
     .then((res) =>
       dispatch({
         type: GET_QUESTION,

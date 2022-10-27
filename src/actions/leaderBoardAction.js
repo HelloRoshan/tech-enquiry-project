@@ -6,7 +6,7 @@ import {
 
 export const setLeaderboard = ()=>(dispatch)=>{
     axios
-    .get(`https://api.studyproject.one/gethighscore`)
+    .get(`http://api.studyproject.one/gethighscore`)
     .then((res) =>
       dispatch({
         type: GET_LEADERBOARD,

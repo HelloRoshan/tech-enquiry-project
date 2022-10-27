@@ -6,7 +6,7 @@ import {
 
 export const setScore = (param)=>(dispatch)=>{
     axios
-    .post(`https://api.studyproject.one/score`,{
+    .post(`http://api.studyproject.one/score`,{
         username:param.username,
         score:param.score
     })

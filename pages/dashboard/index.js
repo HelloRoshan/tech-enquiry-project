@@ -23,7 +23,7 @@ function dashboard() {
     );
     useEffect(() => {
         axios
-            .get(`https://api.studyproject.one/gethighscore`)
+            .get(`http://api.studyproject.one/gethighscore`)
             .then((res) => {
                 const mappedDataSets = res?.data?.results.map((item, index) => {
                     return {
