@@ -29,21 +29,21 @@ function howtoplay() {
                     <p className='d-flex align-items-center'><h4><strong className='me-2'>Step 1: </strong></h4>Click Play Button</p>
                     <div className='d-flex justify-content-center'>
                         <img
-                            src="./img/ss/home.png"
+                            src="./img/SS/home.png"
                             className="w-img"
                         />
                     </div>
                     <p className='d-flex align-items-center'><h4><strong className='me-2'>Step 2: </strong></h4>Select difficulty level</p>
                     <div className='d-flex justify-content-center'>
                         <img
-                            src="./img/ss/level.png"
+                            src="./img/SS/level.png"
                             className="w-img"
                         />
                     </div>
                     <p className='d-flex align-items-center'><h4><strong className='me-2'>Step 3: </strong></h4>Select category you want to play</p>
                     <div className='d-flex justify-content-center'>
                 <img
-                src="./img/ss/category.png"
+                src="./img/SS/category.png"
                 className="w-img"
                 />
                 </div>
@@ -51,35 +51,35 @@ function howtoplay() {
                     <p className='d-flex align-items-center ms-5'><h5><strong className='me-2'>For level 1 </strong></h5>Select correct answers from the <strong className='ms-2'>options</strong></p>
                     <div className='d-flex justify-content-center'>
                 <img
-                src="./img/ss/level1.png"
+                src="./img/SS/level1.png"
                 className="w-img"
                 />
                 </div>
                     <p className='d-flex align-items-center ms-5'><h5><strong className='me-2'>For level 2 </strong></h5>Enter your answer in <strong className='ms-2 me-2'>Input Box</strong></p>
                     <div className='d-flex justify-content-center'>
                 <img
-                src="./img/ss/level2.png"
+                src="./img/SS/level2.png"
                 className="w-img"
                 />
                 </div>
                     <p className='d-flex align-items-center ms-5'><h5><strong className='me-2'>For level 3 </strong></h5>Enter your answer in <strong className='ms-2 me-2'>Input Box</strong></p>
                     <div className='d-flex justify-content-center'>
                 <img
-                src="./img/ss/level3.png"
+                src="./img/SS/level3.png"
                 className="w-img"
                 />
                 </div>
                     <p className='d-flex align-items-center'><h5><strong className='me-2'>Select another level </strong></h5>Click on <strong className='ms-2 me-2'>Level Button</strong> from top right of the page</p>
                     <div className='d-flex justify-content-center'>
                 <img
-                src="./img/ss/backLevel.png"
+                src="./img/SS/backLevel.png"
                 className="w-img"
                 />
                 </div>
                     <p className='d-flex align-items-center'><h5><strong className='me-2'>Go to Home page </strong></h5>Click on <strong className='ms-2 me-2'>Home Button</strong> from top left of the page</p>
                     <div className='d-flex justify-content-center'>
                 <img
-                src="./img/ss/backHome.png"
+                src="./img/SS/backHome.png"
                 className="w-img"
                 />
                 </div>
