@@ -12,6 +12,14 @@ function leaderboard(props) {
 
     ]);
 
+    const checkCurrentUser = (user) => {
+        const userName = JSON.parse(localStorage.getItem('user'))?.username;
+        if (user == userName) {
+            return true;
+        }
+        return false;
+    }
+
     useEffect(() => {
         setLeaderboard()
     }, [])
@@ -28,7 +36,12 @@ function leaderboard(props) {
                 <ListGroup as="ol" numbered>
                     {
                         leaderboardList?.results?.map((leaderboardItem, index) =>
-                            <ListGroup.Item as="li" className="d-flex">
+                            <ListGroup.Item
+                                key={leaderboardItem.user_name}
+                                as="li"
+                                className="d-flex"
+                                variant={checkCurrentUser(leaderboardItem.user_name) ? 'warning' : ''}
+                            >
                                 <span className="ms-2">{leaderboardItem.user_name} </span>
                                 {
                                     index == 0 &&
