@@ -51,17 +51,17 @@ function App(props) {
 
   useEffect(() => {
     getScore(username)
-    
   }, [])
 
   useEffect(() => {
-    // console.log(score)
-    if (score?.userScore?.results[0]) {
-      setUserScore(score?.userScore.results[0]?.score)
-    }else{
+    
+    if (score?.userScore?.results && score?.userScore?.results?.length && score?.userScore?.results[0]) {
+      setUserScore(score?.userScore?.results[0]?.score)
+    }
+    else{
       setUserScore(0)
     }
-  }, [score])
+  },[score])
 
   return (
     <Container className='d-flex align-items-center justify-content-center text-center min-vh-100 m-auto p-auto'>
@@ -139,6 +139,7 @@ App.propTypes = {
 const mapStateToProps = (state) =>
 ({
   score: state.score,
+  
 
 })
 
