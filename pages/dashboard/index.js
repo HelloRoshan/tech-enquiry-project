@@ -93,7 +93,7 @@ function dashboard() {
                                             key={index}
                                             as="li"
                                             className="d-flex">
-                                            <span className="ms-2">{leaderboardItem.user_name} <span className="text-primary">({leaderboardItem.user_name})</span></span>
+                                            <span className="ms-2">{leaderboardItem.full_name} <span className="text-primary">({leaderboardItem.user_name})</span></span>
                                             <span className="ms-auto pe-4 border-end">{leaderboardItem.score}</span>
                                             <Button
                                                 variant="primary"
