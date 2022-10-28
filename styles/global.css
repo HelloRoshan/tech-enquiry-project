@@ -36,3 +36,8 @@
 .background-prime-4 {
     background-color: var(--prime-4)  !important;
 }
+
+.w-img{
+    width: 350px;
+    height:350px;
+}

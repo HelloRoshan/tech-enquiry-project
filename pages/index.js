@@ -98,6 +98,11 @@ function App(props) {
                   Feedbacks
                 </Button>
               </Link>
+              <Link href='/howtoplay' variant="primary">
+                <Button variant="primary" size="lg">
+                  How to Play
+                </Button>
+              </Link>
             </>
           }
           {userType == 0 &&
